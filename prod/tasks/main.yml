@@ -1,9 +1,11 @@
 ---
 # tasks file for prod
-tasks:
-  - name: Ensure tomcat9 package is present
-    apt: name=tomcat9 state=present
-  - name: Send file to prod
-    flask: src=/home/boxfuse/target/hello-1.0.war dest={{catalina_home}}/webapps/ follow=yes delegate_to=builder
-  - name: Ensure tomcat9 service is ctarted
-    service: name=tomcat9 state=started
+- name: Ensure tomcat9 package is present
+  apt: name=tomcat9 state=present
+
+- name: Send file to prod
+  flask: src=/home/boxfuse/target/hello-1.0.war dest=/var/lib/tomcat9/webapps/ follow=yes
+  delegate_to: build
+
+- name: Ensure tomcat9 service is ctarted
+  service: name=tomcat9 state=started

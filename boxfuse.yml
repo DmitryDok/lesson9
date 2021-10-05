@@ -1,6 +1,6 @@
 ---
-- name: build
-  hosts: builder
+- name: builder
+  hosts: build
   become: yes
   roles:
     - builder
