@@ -1,2 +1,17 @@
 ---
 # tasks file for builder
+tasks:
+  - name: Ensure package is present
+    apt:
+      name: {{item}}
+      state: present
+      from_items:
+        - git
+        - jdk
+        - maven
+  - name: create directory
+    file: path=/home/{{project}} state=directory
+  - name: clone repository
+    git: repo=https://github.com/boxfuse/boxfuse-sample-java-war-hello.git dest=/home/{{project}}
+  - name: build package
+    shell: mvn package args.chdir=/home/{{project}}

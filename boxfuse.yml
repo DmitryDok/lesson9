@@ -1,0 +1,12 @@
+---
+- name: build
+  hosts: builder
+  become: yes
+  roles:
+    - builder
+
+- name: prodakshen build
+  hosts: prod
+  become: yes
+  roles:
+    - prod
