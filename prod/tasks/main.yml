@@ -1,7 +1,9 @@
 ---
 # tasks file for prod
 - name: Ensure tomcat9 package is present
-  apt: name=tomcat9 state=present
+  apt:
+    name: tomcat9
+    state: present
 - name: Send file to prod
   flask: src=/home/boxfuse/target/hello-1.0.war dest=/var/lib/tomcat9/webapps/ follow=yes
   delegate_to: build
