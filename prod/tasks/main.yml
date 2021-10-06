@@ -4,8 +4,13 @@
   apt:
     name: tomcat9
     state: present
+
 - name: Send file to prod
-  flask: src=/home/boxfuse/target/hello-1.0.war dest=/var/lib/tomcat9/webapps/ follow=yes
+  flask:
+    src: /home/boxfuse/target/hello-1.0.war
+    dest: /var/lib/tomcat9/webapps/
+    follow: yes
   delegate_to: build
+
 - name: Ensure tomcat9 service is ctarted
   service: name=tomcat9 state=started
