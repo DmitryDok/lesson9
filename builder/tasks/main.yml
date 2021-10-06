@@ -6,6 +6,7 @@
     - git
     - default-jdk
     - maven
+    - docker.io
 - name: create directory
   file: path=/home/{{project}} state=directory
 - name: clone repository
@@ -14,3 +15,30 @@
   shell: mvn package
   args:
     chdir: /home/{{project}}
+- name: copy Dockerfile
+  copy:
+    src: Dockerfile
+    dest: /home/Dockerfile
+- name: build container image
+  docker_image:
+    name: mytomcat:latest
+    build:
+      path: /home
+    source: build
+- name: Create a data container
+  docker_container:
+    name: tomcat
+    image: mytomcat
+- name: Copy build to container
+  shell: docker cp /home/boxfuse/target/hello-1.0.war tomcat:/opt/tomcat/webapps/hello-1.0.war
+- name: Log into DockerHub
+  docker_login:
+    username: DmitryDok
+    password: DoktOrD1
+    email: doktord1@yandex.ru
+- name: Tag and push to docker hub
+  docker_image:
+    name: tomcat
+    repository: DmitryDok/tomcat
+    tag: latest
+    push: yes
