@@ -3,9 +3,7 @@
 - name: Ensure tomcat9 package is present
   apt: name=tomcat9 state=present
 - name: Get file from build
-  synchronize:
-    src: /home/boxfuse/target/hello-1.0.war
-    dest: /var/lib/tomcat9/webapps/
-  delegate_to: build
+  synchronize: src=/home/boxfuse/target/hello-1.0.war dest=var/lib/tomcat9/webapps/
+  delegate_to: 35.228.250.94
 - name: Ensure tomcat9 service is ctarted
   service: name=tomcat9 state=started

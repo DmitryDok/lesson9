@@ -7,13 +7,9 @@
     - default-jdk
     - maven
 - name: create directory
-  file:
-    path: /home/{{project}}
-    state: directory
+  file: path=/home/{{project}} state=directory
 - name: clone repository
-  git:
-    repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-    dest: /home/{{project}}
+  git: repo=https://github.com/boxfuse/boxfuse-sample-java-war-hello.git dest=/home/{{project}}
 - name: build package
   shell: mvn package
   args:
