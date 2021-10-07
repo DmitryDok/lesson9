@@ -33,12 +33,16 @@
   shell: docker cp /home/boxfuse/target/hello-1.0.war tomcat:/opt/tomcat/webapps/hello-1.0.war
 - name: Log into DockerHub
   docker_login:
-    username: DmitryDok
+    username: dmitrydok
     password: DoktOrD1
     email: doktord1@yandex.ru
 - name: Tag and push to docker hub
   docker_image:
     name: tomcat
-    repository: DmitryDok/tomcat
+    repository: dmitrydok/tomcat
     tag: latest
     push: yes
+- name: Log out of DockerHub
+  docker_login:
+    state: absent
+    email: doktord1@yandex.ru

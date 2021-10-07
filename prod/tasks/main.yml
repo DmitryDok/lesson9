@@ -1,6 +1,18 @@
 ---
 # tasks file for prod
-- name: Ensure tomcat9 package is present
-  apt: name=tomcat9 state=present
-- name: Ensure tomcat9 service is ctarted
-  service: name=tomcat9 state=started
+- name: Ensure package is present
+  apt: name=docker.io state=present
+- name: pull an image
+  docker_image:
+    name: dmitrydok/tomcat
+- name: Create a data container
+  docker_container:
+    name: prodtomcat
+    image: tomcat:latest
+- name: Start container
+  docker_container:
+    name: prodtomcat
+    image: tomcat:latest
+    state: started
+    ports:
+     - "8080:8080"
