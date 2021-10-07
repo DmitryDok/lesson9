@@ -21,16 +21,16 @@
     dest: /home/Dockerfile
 - name: build container image
   docker_image:
-    name: mytomcat:latest
+    name: tomcat_img:latest
     build:
       path: /home
     source: build
 - name: Create a data container
   docker_container:
-    name: tomcat
-    image: mytomcat
+    name: tomcat_cont
+    image: tomcat_img
 - name: Copy build to container
-  shell: docker cp /home/boxfuse/target/hello-1.0.war tomcat:/opt/tomcat/webapps/hello-1.0.war
+  shell: docker cp /home/boxfuse/target/hello-1.0.war tomcat_cont:/usr/local/tomcat/webapps/hello-1.0.war
 - name: Log into DockerHub
   docker_login:
     username: dmitrydok
@@ -38,7 +38,7 @@
     email: doktord1@yandex.ru
 - name: Tag and push to docker hub
   docker_image:
-    name: tomcat
+    name: tomcat_img
     repository: dmitrydok/tomcat
     tag: latest
     push: yes

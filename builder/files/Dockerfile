@@ -1,3 +1,3 @@
-FROM davidcaste/alpine-tomcat:jre7tomcat8
+FROM tomcat:alpine
 EXPOSE 8080
-CMD /opt/tomcat/bin/catalina.sh run
+CMD ["catalina.sh", "run"]
