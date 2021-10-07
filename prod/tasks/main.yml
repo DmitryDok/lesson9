@@ -2,17 +2,20 @@
 # tasks file for prod
 - name: Ensure package is present
   apt: name=docker.io state=present
+- name: Stop container
+  docker_container:
+    name: prodtomcat
+    state: absent
 - name: pull an image
   docker_image:
-    name: dmitrydok/tomcat
+    name: dmitrydok/tomcat:latest
 - name: Create a data container
   docker_container:
     name: prodtomcat
-    image: tomcat:latest
+    image: tomcat
 - name: Start container
   docker_container:
     name: prodtomcat
-    image: tomcat:latest
     state: started
     ports:
      - "8080:8080"
